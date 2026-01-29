@@ -1,0 +1,106 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: sans-serif;
+    background: url("./pictures/gameBG.png") center / cover no-repeat;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* TIMER */
+.timer-box {
+    margin-top: 24px;
+    text-align: center;
+}
+
+#timer {
+    font-family: monospace;
+    font-size: 2.5rem;
+    border: 3px solid black;
+    padding: 10px 25px;
+}
+
+#penalty {
+    margin-top: 5px;
+}
+
+/* RÄTSEL-BLOCK */
+.riddles {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+/* EIN RÄTSEL */
+.riddle {
+    display: grid;
+    grid-template-columns:
+    50px
+    50px
+    50px
+    50px
+    50px;
+
+    align-items: center;
+    gap: 10px;
+}
+
+.riddle span {
+    font-size: 28px; /* größer machen nach Wunsch */
+    font-weight: 700;
+    width: 28px;
+    text-align: right;
+}
+
+/* INPUT */
+.riddle input {
+    height: 50px;
+    font-size: 1.5rem;
+    text-align: center;
+    border: 3px solid black;
+    border-radius: 10px;
+}
+
+/* BUTTON */
+.riddle button {
+    width: 50px;              /* Kreis-Größe */
+    height: 50px;
+    border-radius: 50%;       /* macht den Kreis */
+    background: #ffffff;      /* innen weiß */
+    border: 2px solid #000000;/* Kreisrand (Farbe anpassen) */
+    display: grid;
+    place-items: center;      /* Icon mittig */
+    padding: 0;
+    cursor: pointer;
+}
+
+.riddle button img {
+    width: 32px;              /* Icon-Größe */
+    height: 32px;
+    display: block;
+    object-fit: contain;
+}
+
+.riddle button:active {
+    transform: scale(0.96);
+}
+
+/* FINISH */
+#finishButton {
+    margin: 40px 0;
+    padding: 20px 60px;
+    font-size: 1.5rem;
+    border-radius: 30px;
+}
+
+#finishButton:disabled {
+    opacity: 0.4;
+}

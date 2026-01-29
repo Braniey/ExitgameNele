@@ -2,20 +2,77 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Exit Game – Start</title>
-
+    <title>Exit Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="game.css">
 </head>
 <body>
 
-<div class="overlay">
-    <button class="start-button" id="startButton">
-        Spiel starten
-    </button>
+<!-- Timer -->
+<div class="timer-box">
+    <div id="timer">00:00:00</div>
+    <div id="penalty">Strafe: +00:00</div>
 </div>
 
-<script src="script.js"></script>
+<!-- Rätsel -->
+<div class="riddles">
+
+    <div class="riddle" data-index="0">
+        <span>1</span>
+        <input maxlength="1">
+        <input maxlength="1">
+        <input maxlength="1">
+        <button type="button" aria-label="Senden">
+            <img src="./pictures/senden.png" alt="Senden">
+        </button>
+    </div>
+
+    <div class="riddle" data-index="1">
+        <span>2</span>
+        <input maxlength="1">
+        <input maxlength="1">
+        <input maxlength="1">
+        <button type="button" aria-label="Senden">
+            <img src="./pictures/senden.png" alt="Senden">
+        </button>
+    </div>
+
+    <div class="riddle" data-index="2">
+        <span>3</span>
+        <input maxlength="1">
+        <input maxlength="1">
+        <input maxlength="1">
+        <button type="button" aria-label="Senden">
+            <img src="./pictures/senden.png" alt="Senden">
+        </button>
+    </div>
+
+    <div class="riddle" data-index="3">
+        <span>4</span>
+        <input maxlength="1">
+        <input maxlength="1">
+        <input maxlength="1">
+        <button type="button" aria-label="Senden">
+            <img src="./pictures/senden.png" alt="Senden">
+        </button>
+    </div>
+
+    <div class="riddle" data-index="4">
+        <span>5</span>
+        <input maxlength="1">
+        <input maxlength="1">
+        <input maxlength="1">
+        <button type="button" aria-label="Senden">
+            <img src="./pictures/senden.png" alt="Senden">
+        </button>
+    </div>
+
+</div>
+
+<!-- Finish -->
+<button id="finishButton" disabled>Finish</button>
+
+<script src="game.js"></script>
 </body>
 </html>
