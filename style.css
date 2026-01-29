@@ -1,0 +1,37 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    background-image: url("./pictures/escapeGame.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: sans-serif;
+}
+
+.overlay {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-button {
+    padding: 20px 40px;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.start-button:active {
+    transform: scale(0.97);
+}
