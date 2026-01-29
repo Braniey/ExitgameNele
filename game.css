@@ -71,20 +71,16 @@ body {
 
 /* BUTTON */
 .riddle button {
-    width: 50px;              /* Kreis-Größe */
-    height: 50px;
-    border-radius: 50%;       /* macht den Kreis */
-    background: #ffffff;      /* innen weiß */
-    border: 2px solid #000000;/* Kreisrand (Farbe anpassen) */
-    display: grid;
-    place-items: center;      /* Icon mittig */
+    background: transparent;
+    border: none;
     padding: 0;
     cursor: pointer;
+    line-height: 0;
 }
 
 .riddle button img {
-    width: 32px;              /* Icon-Größe */
-    height: 32px;
+    width: 40px;
+    height: 40px;
     display: block;
     object-fit: contain;
 }
