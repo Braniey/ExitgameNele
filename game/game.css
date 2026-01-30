@@ -100,3 +100,39 @@ body {
 #finishButton:disabled {
     opacity: 0.4;
 }
+
+/* === NEU: Flash-Effekt grün/rot (kurz) === */
+body.flash-success::before,
+body.flash-fail::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    animation: screenFlash 220ms ease-out;
+}
+
+body.flash-success::before {
+    background: rgba(0, 200, 0, 0.35);
+}
+
+body.flash-fail::before {
+    background: rgba(220, 0, 0, 0.35);
+}
+
+@keyframes screenFlash {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* === NEU: gelöstes Rätsel visuell markieren === */
+.riddle.is-solved input {
+    background: rgba(0, 200, 0, 0.18);
+    border-color: rgba(0, 120, 0, 0.8);
+}
+
+.riddle.is-solved button {
+    opacity: 0.35;
+    cursor: default;
+}
