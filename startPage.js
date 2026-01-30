@@ -9,5 +9,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Startet das Spiel
 function startGame() {
-    window.location.href = "game.html";
+    window.location.href = "./game/game.html";
 }
