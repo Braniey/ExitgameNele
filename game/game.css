@@ -136,3 +136,131 @@ body.flash-fail::before {
     opacity: 0.35;
     cursor: default;
 }
+
+/* === NEU: Finish-Modal (Overlay + Dialog) === */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+
+    display: grid;
+    place-items: center;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    /* Hintergrund unscharf machen */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+/* === NEU: Design-Variablen (später easy anpassbar) === */
+.modal {
+    --modal-bg: rgba(255, 255, 255, 0.96);
+    --modal-border: #000;
+    --modal-shadow: rgba(0, 0, 0, 0.45);
+
+    --modal-title-color: #000;
+    --modal-icon-color: currentColor;
+
+    --modal-panel-bg: rgba(255, 255, 255, 0.7);
+    --modal-panel-border: rgba(0, 0, 0, 0.25);
+
+    --modal-label-color: #000;
+    --modal-value-color: #000;
+    --modal-separator-color: rgba(0, 0, 0, 0.75);
+
+    width: min(560px, calc(100vw - 32px));
+    border: 3px solid var(--modal-border);
+    border-radius: 16px;
+    background: var(--modal-bg);
+    padding: 18px 18px 14px;
+
+    box-shadow: 0 18px 50px var(--modal-shadow);
+}
+
+.finish-title {
+    margin: 0 0 10px;
+    font-size: 1.8rem;
+    color: var(--modal-title-color);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.finish-title__icon {
+    color: var(--modal-icon-color);
+    line-height: 1;
+    font-size: 1.2em;
+}
+
+.finish-title__text {
+    font-weight: 800;
+    letter-spacing: 0.2px;
+}
+
+.finish-summary {
+    margin: 0;
+    padding: 14px;
+    border: 2px solid var(--modal-panel-border);
+    border-radius: 12px;
+    background: var(--modal-panel-bg);
+
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+.finish-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 16px;
+
+    padding: 4px 0;
+}
+
+.finish-row__label {
+    color: var(--modal-label-color);
+}
+
+.finish-row__value {
+    color: var(--modal-value-color);
+}
+
+.finish-separator {
+    margin: 8px 0;
+    color: var(--modal-separator-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+.finish-row--total .finish-row__label,
+.finish-row--total .finish-row__value {
+    font-weight: 800;
+}
+
+.modal-actions {
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+#finishCloseBtn {
+    padding: 10px 18px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: 2px solid #000;
+    background: #fff;
+    cursor: pointer;
+}
+
+#finishCloseBtn:active {
+    transform: scale(0.98);
+}
+
+/* === hidden-Attribut erzwingt wirklich "unsichtbar" === */
+.modal-backdrop[hidden] {
+    display: none !important;
+}

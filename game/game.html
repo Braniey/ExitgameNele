@@ -73,6 +73,41 @@
 <!-- Finish -->
 <button id="finishButton" disabled>Finish</button>
 
+<!-- === NEU: Modal (Endscreen) === -->
+<!-- === Modal (Endscreen) === -->
+<div id="finishModal" class="modal-backdrop" hidden aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="finishTitle">
+        <h2 id="finishTitle" class="finish-title">
+            <span class="finish-title__icon" aria-hidden="true">🎉</span>
+            <span class="finish-title__text">Geschafft</span>
+            <span class="finish-title__icon" aria-hidden="true">🎉</span>
+        </h2>
+
+        <div class="finish-summary" role="group" aria-label="Zeitübersicht">
+            <div class="finish-row">
+                <div class="finish-row__label">Zeit</div>
+                <div id="finishTime" class="finish-row__value">00:00:00</div>
+            </div>
+
+            <div class="finish-row">
+                <div class="finish-row__label">Strafe</div>
+                <div id="finishPenalty" class="finish-row__value">00:00:00</div>
+            </div>
+
+            <div class="finish-separator" aria-hidden="true">-----------------------------------------------------------</div>
+
+            <div class="finish-row finish-row--total">
+                <div class="finish-row__label">Gesamt</div>
+                <div id="finishTotal" class="finish-row__value">00:00:00</div>
+            </div>
+        </div>
+
+        <div class="modal-actions">
+            <button id="finishCloseBtn" type="button">Schließen</button>
+        </div>
+    </div>
+</div>
+
 <script src="gamePage.js"></script>
 </body>
 </html>

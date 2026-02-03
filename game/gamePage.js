@@ -1,14 +1,8 @@
 // game.js
 (() => {
     // === Konfiguration ===
-    // Pro Rätsel (data-index) der korrekte 3-stellige Code:
-    // Passe diese Werte an deine Rätsel-Lösungen an.
     const SOLUTIONS = ["123", "456", "789", "012", "345"];
-
-    // Strafe pro falschem Versuch (in Sekunden)
     const PENALTY_SECONDS_PER_FAIL = 120;
-
-    // Flash-Dauer (ms) muss zur CSS-Animation passen
     const FLASH_MS = 220;
 
     // === DOM ===
@@ -17,11 +11,18 @@
     const finishButton = document.getElementById("finishButton");
     const riddleEls = Array.from(document.querySelectorAll(".riddle"));
 
+    // === Modal DOM ===
+    const finishModalEl = document.getElementById("finishModal");
+    const finishCloseBtn = document.getElementById("finishCloseBtn");
+
+    // NEU: Wertefelder wie in der Skizze
+    const finishTimeEl = document.getElementById("finishTime");
+    const finishPenaltyValueEl = document.getElementById("finishPenalty");
+    const finishTotalEl = document.getElementById("finishTotal");
+
     // === State ===
     const startMs = Date.now();
     let penaltySeconds = 0;
-
-    // pro Rätsel merken, ob es bereits korrekt gelöst wurde
     const solved = new Array(riddleEls.length).fill(false);
 
     // === Helpers ===
@@ -34,28 +35,41 @@
         return `${pad2(h)}:${pad2(m)}:${pad2(s)}`;
     }
 
-    function formatMS(totalSeconds) {
-        const m = Math.floor(totalSeconds / 60);
-        const s = totalSeconds % 60;
-        return `${pad2(m)}:${pad2(s)}`;
-    }
-
     function getElapsedSeconds() {
         return Math.floor((Date.now() - startMs) / 1000);
     }
 
     function updateTimerUI() {
         timerEl.textContent = formatHMS(getElapsedSeconds());
-        penaltyEl.textContent = `Strafe: +${formatMS(penaltySeconds)}`;
+        // Skizze zeigt hh:mm:ss → Strafe ebenfalls in hh:mm:ss
+        penaltyEl.textContent = `Strafe: +${formatHMS(penaltySeconds)}`;
     }
 
     function flash(type /* "success" | "fail" */) {
         const cls = type === "success" ? "flash-success" : "flash-fail";
         document.body.classList.remove("flash-success", "flash-fail");
-        // Reflow, damit es bei schnellem Klicken erneut triggert
         void document.body.offsetWidth;
         document.body.classList.add(cls);
         window.setTimeout(() => document.body.classList.remove(cls), FLASH_MS);
+    }
+
+    // === Modal Helpers ===
+    function openFinishModal({ time, penalty, total }) {
+        if (!finishModalEl) return;
+
+        if (finishTimeEl) finishTimeEl.textContent = time;
+        if (finishPenaltyValueEl) finishPenaltyValueEl.textContent = penalty;
+        if (finishTotalEl) finishTotalEl.textContent = total;
+
+        finishModalEl.hidden = false;
+        finishModalEl.setAttribute("aria-hidden", "false");
+        finishCloseBtn?.focus();
+    }
+
+    function closeFinishModal() {
+        if (!finishModalEl) return;
+        finishModalEl.hidden = true;
+        finishModalEl.setAttribute("aria-hidden", "true");
     }
 
     function setRiddleSolvedUI(riddleEl, isSolved) {
@@ -85,7 +99,6 @@
     }
 
     function normalizeDigitInput(value) {
-        // erlaubt nur 1 Ziffer, sonst leer
         const match = String(value).match(/\d/);
         return match ? match[0] : "";
     }
@@ -124,7 +137,6 @@
                 }
 
                 if (e.key === "Backspace") {
-                    // Wenn Feld leer: zurück ins vorige Feld
                     if (!inputEl.value && i > 0) {
                         e.preventDefault();
                         focusInput(inputs, i - 1);
@@ -132,7 +144,6 @@
                     }
                 }
 
-                // Optional: Pfeiltasten Navigation
                 if (e.key === "ArrowLeft" && i > 0) {
                     e.preventDefault();
                     focusInput(inputs, i - 1);
@@ -143,7 +154,6 @@
                 }
             });
 
-            // Paste: mehrere Ziffern auf einmal in die drei Felder verteilen
             inputEl.addEventListener("paste", (e) => {
                 const text = (e.clipboardData?.getData("text") ?? "").replace(/\D/g, "");
                 if (!text) return;
@@ -165,7 +175,6 @@
 
             const code = collectCode(riddleEl);
 
-            // nur prüfen, wenn alle 3 Ziffern da sind
             const hasEmpty = inputs.some((inp) => inp.value === "");
             if (code.length !== inputs.length || hasEmpty) {
                 flash("fail");
@@ -184,7 +193,6 @@
                 penaltySeconds += PENALTY_SECONDS_PER_FAIL;
                 updateTimerUI();
 
-                // Optional: Felder leeren und wieder ins erste fokussieren
                 inputs.forEach((inp) => (inp.value = ""));
                 focusInput(inputs, 0);
             }
@@ -195,6 +203,17 @@
     updateTimerUI();
     const timerId = window.setInterval(updateTimerUI, 250);
 
+    // === Modal Close Events ===
+    finishCloseBtn?.addEventListener("click", closeFinishModal);
+    finishModalEl?.addEventListener("click", (e) => {
+        if (e.target === finishModalEl) closeFinishModal();
+    });
+    window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && finishModalEl && !finishModalEl.hidden) {
+            closeFinishModal();
+        }
+    });
+
     // === Finish ===
     finishButton.addEventListener("click", () => {
         if (!allSolved()) return;
@@ -204,14 +223,10 @@
         const elapsed = getElapsedSeconds();
         const end = elapsed + penaltySeconds;
 
-        const message =
-            `Geschafft!\n\n` +
-            `Gebrauchte Zeit: ${formatHMS(elapsed)}\n` +
-            `Strafe: +${formatMS(penaltySeconds)}\n` +
-            `————————————\n` +
-            `Endzeit: ${formatHMS(end)}`;
-
-        // Einfach & zuverlässig:
-        window.alert(message);
+        openFinishModal({
+            time: formatHMS(elapsed),
+            penalty: formatHMS(penaltySeconds),
+            total: formatHMS(end),
+        });
     });
 })();
