@@ -89,6 +89,14 @@ body {
     transform: scale(0.96);
 }
 
+/* NEU: Tipp-Button */
+#hintButton {
+    margin: 10px 0 0;
+    padding: 16px 50px;
+    font-size: 1.2rem;
+    border-radius: 30px;
+}
+
 /* FINISH */
 #finishButton {
     margin: 40px 0;

@@ -1,13 +1,14 @@
 // game.js
 (() => {
     // === Konfiguration ===
-    const SOLUTIONS = ["123", "456", "789", "012", "345"];
+    const SOLUTIONS = ["123", "456", "789", "012", "345", "678"];
     const PENALTY_SECONDS_PER_FAIL = 120;
     const FLASH_MS = 220;
 
     // === DOM ===
     const timerEl = document.getElementById("timer");
     const penaltyEl = document.getElementById("penalty");
+    const hintButton = document.getElementById("hintButton");
     const finishButton = document.getElementById("finishButton");
     const riddleEls = Array.from(document.querySelectorAll(".riddle"));
 
@@ -202,6 +203,13 @@
     // === Timer Start ===
     updateTimerUI();
     const timerId = window.setInterval(updateTimerUI, 250);
+
+    // NEU: Tipp geholt => Strafzeit wie bei falschem Code
+    hintButton?.addEventListener("click", () => {
+        flash("fail");
+        penaltySeconds += PENALTY_SECONDS_PER_FAIL;
+        updateTimerUI();
+    });
 
     // === Modal Close Events ===
     finishCloseBtn?.addEventListener("click", closeFinishModal);
