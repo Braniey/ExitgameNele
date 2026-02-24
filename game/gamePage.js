@@ -1,7 +1,7 @@
 // game.js
 (() => {
     // === Konfiguration ===
-    const SOLUTIONS = ["123", "456", "789", "012", "345", "678"];
+    const SOLUTIONS = ["327", "124", "742", "464", "106", "957"];
     const PENALTY_SECONDS_PER_FAIL = 120;
     const FLASH_MS = 220;
 
